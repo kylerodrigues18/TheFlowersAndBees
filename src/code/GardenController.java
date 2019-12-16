@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 public class GardenController {
 
     private ArrayList<FlowerClass> flowers;
+    private ArrayList<AbstractBee> bees;
 
     @FXML
     private Pane gardenPane;
@@ -24,6 +27,12 @@ public class GardenController {
         for (FlowerClass flower: flowers) {
             gardenPane.getChildren().add(flower.getImageView());
         }
+
+        initBees(5);
+        for (AbstractBee bee: bees) {
+            gardenPane.getChildren().add(bee.getImageView());
+        }
+
     }
 
     private void initFlowers(int num) {
@@ -45,6 +54,41 @@ public class GardenController {
             flower.setY(y);
             FlowerClass flowerClass = new FlowerClass(location, true, energy, flower);
             flowers.add(flowerClass);
+        }
+    }
+
+    private void initBees(int num) {
+        ChooseImage chooseImage = new ChooseImage();
+        bees = new ArrayList<>();
+        for(int i = 0; i < num; i++) {
+            //set location and energy
+            int x = (int) (Math.random() * 601);
+            int y = (int) (Math.random() * 601);
+            int energyLevel = (int) (Math.random() * 3) + 1;
+            int moveDistance = (int) (Math.random() *10) + 1;
+            if (i % 2 == 0) {
+                energyLevel = energyLevel * -1;
+            }
+            Point2D location = new Point2D(x, y);
+            ImageView beeImage = new ImageView(new Image(chooseImage.getBeeFile()));
+            beeImage.setPreserveRatio(true);
+            beeImage.setFitWidth(50.0);
+            beeImage.setX(x);
+            beeImage.setY(y);
+            if(i % 2 == 0){
+                SmartBee smartBee = new SmartBee(location, energyLevel, moveDistance, beeImage);
+                bees.add(smartBee);
+            } else {
+                DumbBee dumbBee = new DumbBee(location, energyLevel, moveDistance, beeImage);
+                bees.add(dumbBee);
+            }
+        }
+    }
+
+    @FXML
+    public void onKeyPressed(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.SPACE){
+
         }
     }
 

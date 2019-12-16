@@ -9,7 +9,7 @@ public class ChooseImage {
         return fileLocation + "flower-" + fileExtension + ".jpg";    }
 
     public String getBeeFile() {
-        int fileExtension = ((int) (Math.random() * 3)) + 1;
+        int fileExtension = ((int) (Math.random() * 2)) + 1;
         return fileLocation + "bee-" + fileExtension + ".jpg";
     }
 
