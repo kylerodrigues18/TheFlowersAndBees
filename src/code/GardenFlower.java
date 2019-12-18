@@ -1,15 +1,22 @@
+/**
+ * Course: SE 2811 - 051
+ * Winter 2019
+ * Lab 2 - The Flowers and The Bees
+ * Names: Milan Kablar and Kyle Rodrigues
+ * Modified: 12/17/2019
+ */
 package code;
 
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 
-public class FlowerClass implements Flower{
+public class GardenFlower implements Flower{
     Point2D location = null;
-    Boolean hasNector = Boolean.TRUE;
+    boolean hasNector = true;
     int energyLevel = 0;
     ImageView imageView;
 
-    public FlowerClass(Point2D location, Boolean hasNector, int energyLevel, ImageView imageView) {
+    public GardenFlower(Point2D location, boolean hasNector, int energyLevel, ImageView imageView) {
         this.location = location;
         this.hasNector = hasNector;
         this.energyLevel = energyLevel;
@@ -22,7 +29,7 @@ public class FlowerClass implements Flower{
     }
 
     @Override
-    public void setNectorValue(Boolean nectorValue) {
+    public void setNectorValue(boolean nectorValue) {
         hasNector = nectorValue;
     }
 

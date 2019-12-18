@@ -1,3 +1,10 @@
+/**
+ * Course: SE 2811 - 051
+ * Winter 2019
+ * Lab 2 - The Flowers and The Bees
+ * Names: Milan Kablar and Kyle Rodrigues
+ * Modified: 12/17/2019
+ */
 package code;
 
 import javafx.fxml.FXML;
@@ -9,22 +16,27 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+/**
+ * Controller class which initializes bees and flowers.
+ */
 public class GardenController {
 
-    private ArrayList<FlowerClass> flowers;
+    private ArrayList<GardenFlower> flowers;
     private ArrayList<AbstractBee> bees;
 
     @FXML
     private Pane gardenPane;
 
+    /**
+     * Method that initializes gardenPane and calls flowers and bees to be initialized.
+     */
     @FXML
     public void initialize() {
         gardenPane.setStyle("-fx-background-color: linear-gradient(to bottom right, derive(forestgreen, 20%), derive(forestgreen, -40%));");
 
         initFlowers(20);
-        for (FlowerClass flower: flowers) {
+        for (GardenFlower flower: flowers) {
             gardenPane.getChildren().add(flower.getImageView());
         }
 
@@ -32,9 +44,12 @@ public class GardenController {
         for (AbstractBee bee: bees) {
             gardenPane.getChildren().add(bee.getImageView());
         }
-
     }
 
+    /**
+     * Method that creates flower objects with random image view and energy level.
+     * @param num how many flowers will be initialized
+     */
     private void initFlowers(int num) {
         ChooseImage chooseImage = new ChooseImage();
         flowers = new ArrayList<>();
@@ -52,11 +67,15 @@ public class GardenController {
             flower.setFitWidth(50.0);
             flower.setX(x);
             flower.setY(y);
-            FlowerClass flowerClass = new FlowerClass(location, true, energy, flower);
-            flowers.add(flowerClass);
+            GardenFlower gardenFlower = new GardenFlower(location, true, energy, flower);
+            flowers.add(gardenFlower);
         }
     }
 
+    /**
+     * Method that creates bee objects with random image view and energy level.
+     * @param num how many bees will be initialized
+     */
     private void initBees(int num) {
         ChooseImage chooseImage = new ChooseImage();
         bees = new ArrayList<>();
@@ -85,10 +104,14 @@ public class GardenController {
         }
     }
 
+    /**
+     * Method that is called on key press.
+     * @param keyEvent KeyEvent object
+     */
     @FXML
     public void onKeyPressed(KeyEvent keyEvent) {
         if(keyEvent.getCode() == KeyCode.SPACE){
-
+            //TODO
         }
     }
 
