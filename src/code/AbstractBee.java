@@ -5,7 +5,6 @@
  * Names: Milan Kablar and Kyle Rodrigues
  * Modified: 12/17/2019
  */
-
 package code;
 
 import javafx.geometry.Point2D;
