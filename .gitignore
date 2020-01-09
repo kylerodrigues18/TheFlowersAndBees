@@ -1,0 +1,29 @@
+# Configuration used in SDL and other upper-level courses
+# (where # marks comment lines)
+
+# common build products to be ignored
+*.o
+*.obj
+*.class
+*.exe
+
+# common IDE-generated files and folders to ignore
+workspace.xml
+bin/
+out/
+.classpath
+# uncomment following for courses in which Eclipse .project files are not committed
+# .project
+
+# ignore automatically generated files created by some applications, OSs
+*.bak
+*.log
+*.ldb
+~*
+.DS_Store*
+._*
+Thumbs.db
+
+# You can add additional patterns. You can also specify that a file should
+#   NOT be ignored by starting it with !; for example:
+# !.classpath
