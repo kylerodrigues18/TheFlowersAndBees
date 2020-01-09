@@ -7,6 +7,7 @@
  */
 package code;
 
+import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 
 /**
@@ -18,6 +19,8 @@ public interface Bee {
     void changeEnergyLevel(int energyLevel);
 
     int getEnergyLevel();
+
+    Point2D getLocation();
 
     ImageView getImageView();
 }

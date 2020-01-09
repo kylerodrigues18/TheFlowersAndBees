@@ -35,12 +35,12 @@ public class GardenController {
     public void initialize() {
         gardenPane.setStyle("-fx-background-color: linear-gradient(to bottom right, derive(forestgreen, 20%), derive(forestgreen, -40%));");
 
-        initFlowers(100);
+        initFlowers(25);
         for (GardenFlower flower: flowers) {
             gardenPane.getChildren().add(flower.getImageView());
         }
 
-        initBees(100);
+        initBees(25);
         for (AbstractBee bee: bees) {
             gardenPane.getChildren().add(bee.getImageView());
         }
@@ -55,9 +55,27 @@ public class GardenController {
         flowers = new ArrayList<>();
         for(int i = 0; i < num; i++) {
             //set location and energy
+
             int x = (int) (Math.random() * 510);
             int y = (int) (Math.random() * 510);
+            boolean collisionFlag = true;
+
+            while(collisionFlag) {
+                collisionFlag = false;
+                for(Flower flower: flowers) {
+                    if(Math.abs(x - flower.getLocation().getX()) <= 25 &&
+                            Math.abs(y - flower.getLocation().getY()) <= 25) {
+                        x = (int) (Math.random() * 510);
+                        y = (int) (Math.random() * 510);
+                        collisionFlag = true;
+                    }
+                }
+            }
+
             int energy = (int) (Math.random() * 3) + 1;
+
+            // sets half the flowers to have negative energy
+            // when the bee collides with a negative flower, it will decrease energy of the bee
             if (i % 2 == 0) {
                 energy = energy * -1;
             }
@@ -83,6 +101,22 @@ public class GardenController {
             //set location and energy
             int x = (int) (Math.random() * 510);
             int y = (int) (Math.random() * 510);
+
+            boolean collisionFlag = true;
+
+            while(collisionFlag) {
+                collisionFlag = false;
+                for(Bee bee: bees) {
+                    if(Math.abs(x - bee.getLocation().getX()) <= 25 &&
+                            Math.abs(y - bee.getLocation().getY()) <= 25) {
+                        x = (int) (Math.random() * 510);
+                        y = (int) (Math.random() * 510);
+                        collisionFlag = true;
+                    }
+                }
+            }
+
+
             int energyLevel = (int) (Math.random() * 3) + 1;
             int moveDistance = (int) (Math.random() *10) + 1;
             if (i % 2 == 0) {

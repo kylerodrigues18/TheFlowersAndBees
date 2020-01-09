@@ -60,6 +60,15 @@ public abstract class AbstractBee implements Bee {
     }
 
     /**
+     * Accessor method for Point2D location.
+     * @return Point2D location
+     */
+    @Override
+    public Point2D getLocation() {
+        return location;
+    }
+
+    /**
      * Accessor method for imageView for the bee object.
      * @return ImageView object
      */
