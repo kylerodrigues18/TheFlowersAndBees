@@ -20,6 +20,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("garden.fxml"));
         primaryStage.setTitle("Flappy Bee");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
+        primaryStage.setHeight(600);
+        primaryStage.setWidth(600);
         primaryStage.show();
     }
 

@@ -43,7 +43,7 @@ public abstract class AbstractBee implements Bee {
 
     /**
      * Mutator method that changes the energy level of the bee.
-     * @param energyLevel
+     * @param energyChange energy to change by
      */
     @Override
     public void changeEnergyLevel(int energyChange) {

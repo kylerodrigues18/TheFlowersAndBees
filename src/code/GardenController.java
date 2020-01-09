@@ -35,12 +35,12 @@ public class GardenController {
     public void initialize() {
         gardenPane.setStyle("-fx-background-color: linear-gradient(to bottom right, derive(forestgreen, 20%), derive(forestgreen, -40%));");
 
-        initFlowers(20);
+        initFlowers(100);
         for (GardenFlower flower: flowers) {
             gardenPane.getChildren().add(flower.getImageView());
         }
 
-        initBees(5);
+        initBees(100);
         for (AbstractBee bee: bees) {
             gardenPane.getChildren().add(bee.getImageView());
         }
@@ -55,8 +55,8 @@ public class GardenController {
         flowers = new ArrayList<>();
         for(int i = 0; i < num; i++) {
             //set location and energy
-            int x = (int) (Math.random() * 601);
-            int y = (int) (Math.random() * 601);
+            int x = (int) (Math.random() * 510);
+            int y = (int) (Math.random() * 510);
             int energy = (int) (Math.random() * 3) + 1;
             if (i % 2 == 0) {
                 energy = energy * -1;
@@ -64,7 +64,7 @@ public class GardenController {
             Point2D location = new Point2D(x, y);
             ImageView flower = new ImageView(new Image(chooseImage.getFlowerFile()));
             flower.setPreserveRatio(true);
-            flower.setFitWidth(50.0);
+            flower.setFitWidth(30.0);
             flower.setX(x);
             flower.setY(y);
             GardenFlower gardenFlower = new GardenFlower(location, true, energy, flower);
@@ -81,8 +81,8 @@ public class GardenController {
         bees = new ArrayList<>();
         for(int i = 0; i < num; i++) {
             //set location and energy
-            int x = (int) (Math.random() * 601);
-            int y = (int) (Math.random() * 601);
+            int x = (int) (Math.random() * 510);
+            int y = (int) (Math.random() * 510);
             int energyLevel = (int) (Math.random() * 3) + 1;
             int moveDistance = (int) (Math.random() *10) + 1;
             if (i % 2 == 0) {
@@ -91,7 +91,7 @@ public class GardenController {
             Point2D location = new Point2D(x, y);
             ImageView beeImage = new ImageView(new Image(chooseImage.getBeeFile()));
             beeImage.setPreserveRatio(true);
-            beeImage.setFitWidth(50.0);
+            beeImage.setFitWidth(30.0);
             beeImage.setX(x);
             beeImage.setY(y);
             if(i % 2 == 0){
