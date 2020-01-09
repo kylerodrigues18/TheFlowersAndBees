@@ -7,6 +7,10 @@
 *.class
 *.exe
 
+# IntelliJ
+/out/
+/.idea/
+
 # common IDE-generated files and folders to ignore
 workspace.xml
 bin/
