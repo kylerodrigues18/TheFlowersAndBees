@@ -27,6 +27,6 @@ public class DumbBee extends AbstractBee {
      */
     @Override
     public void move() {
-        //TODO
+
     }
 }
