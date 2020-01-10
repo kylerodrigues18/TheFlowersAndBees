@@ -24,6 +24,7 @@ public class GardenController {
 
     private ArrayList<GardenFlower> flowers;
     private ArrayList<AbstractBee> bees;
+    private int flowerCounter;
 
     @FXML
     private Pane gardenPane;
@@ -35,35 +36,38 @@ public class GardenController {
     public void initialize() {
         gardenPane.setStyle("-fx-background-color: linear-gradient(to bottom right, derive(forestgreen, 20%), derive(forestgreen, -40%));");
 
-        initFlowers(25);
-        for (GardenFlower flower: flowers) {
+        initFlowers(4);
+        for (GardenFlower flower : flowers) {
             gardenPane.getChildren().add(flower.getImageView());
         }
 
-        initBees(25);
-        for (AbstractBee bee: bees) {
+        initBees(3);
+        for (AbstractBee bee : bees) {
             gardenPane.getChildren().add(bee.getImageView());
         }
+        gardenPane.setFocusTraversable(true);
     }
 
     /**
      * Method that creates flower objects with random image view and energy level.
+     *
      * @param num how many flowers will be initialized
      */
     private void initFlowers(int num) {
         ChooseImage chooseImage = new ChooseImage();
         flowers = new ArrayList<>();
-        for(int i = 0; i < num; i++) {
+        flowerCounter = 0;
+        for (int i = 0; i < num; i++) {
             //set location and energy
 
             int x = (int) (Math.random() * 510);
             int y = (int) (Math.random() * 510);
             boolean collisionFlag = true;
 
-            while(collisionFlag) {
+            while (collisionFlag) {
                 collisionFlag = false;
-                for(Flower flower: flowers) {
-                    if(Math.abs(x - flower.getLocation().getX()) <= 25 &&
+                for (Flower flower : flowers) {
+                    if (Math.abs(x - flower.getLocation().getX()) <= 25 &&
                             Math.abs(y - flower.getLocation().getY()) <= 25) {
                         x = (int) (Math.random() * 510);
                         y = (int) (Math.random() * 510);
@@ -92,22 +96,23 @@ public class GardenController {
 
     /**
      * Method that creates bee objects with random image view and energy level.
+     *
      * @param num how many bees will be initialized
      */
     private void initBees(int num) {
         ChooseImage chooseImage = new ChooseImage();
         bees = new ArrayList<>();
-        for(int i = 0; i < num; i++) {
+        for (int i = 0; i < num; i++) {
             //set location and energy
             int x = (int) (Math.random() * 510);
             int y = (int) (Math.random() * 510);
 
             boolean collisionFlag = true;
 
-            while(collisionFlag) {
+            while (collisionFlag) {
                 collisionFlag = false;
-                for(Bee bee: bees) {
-                    if(Math.abs(x - bee.getLocation().getX()) <= 25 &&
+                for (Bee bee : bees) {
+                    if (Math.abs(x - bee.getLocation().getX()) <= 25 &&
                             Math.abs(y - bee.getLocation().getY()) <= 25) {
                         x = (int) (Math.random() * 510);
                         y = (int) (Math.random() * 510);
@@ -118,17 +123,15 @@ public class GardenController {
 
 
             int energyLevel = (int) (Math.random() * 3) + 1;
-            int moveDistance = (int) (Math.random() *10) + 1;
-            if (i % 2 == 0) {
-                energyLevel = energyLevel * -1;
-            }
+            int moveDistance = (int) (Math.random() * 10) + 1;
+
             Point2D location = new Point2D(x, y);
             ImageView beeImage = new ImageView(new Image(chooseImage.getBeeFile()));
             beeImage.setPreserveRatio(true);
             beeImage.setFitWidth(30.0);
             beeImage.setX(x);
             beeImage.setY(y);
-            if(i % 2 == 0){
+            if (i == 0) {
                 SmartBee smartBee = new SmartBee(location, energyLevel, moveDistance, beeImage);
                 bees.add(smartBee);
             } else {
@@ -140,14 +143,31 @@ public class GardenController {
 
     /**
      * Method that is called on key press.
+     *
      * @param keyEvent KeyEvent object
      */
     @FXML
     public void onKeyPressed(KeyEvent keyEvent) {
-        if(keyEvent.getCode() == KeyCode.SPACE){
-            //TODO
+        if (keyEvent.getCode() == KeyCode.SPACE || keyEvent.getCode() == KeyCode.RIGHT) {
+            Point2D flowerLocation = flowers.get(flowerCounter).getLocation();
+            System.out.println("hey");
+            for (int i = 0; i < bees.size(); i++) {
+                for (GardenFlower gardenFlower : flowers) {
+                    Point2D tempFlowerLocation = gardenFlower.getLocation();
+                    if (bees.get(i).getLocation().distance(tempFlowerLocation) < 15) {
+                        bees.get(i).changeEnergyLevel(gardenFlower.getEnergyLevel());
+                        if (i == 0) {
+                            flowerCounter++;
+                            if (flowerCounter >= bees.size()) {
+                                flowerCounter = 0;
+                            }
+                        }
+                    }
+                }
+                if (bees.get(i).getLocation().distance(flowerLocation) > 15) {
+                    bees.get(i).move(flowerLocation);
+                }
+            }
         }
     }
-
-
 }

@@ -6,7 +6,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.GardenController">
+<GridPane alignment="center" hgap="10" onKeyPressed="#onKeyPressed" vgap="10" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.GardenController">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
    <children>
       <Pane fx:id="gardenPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="600.0">
          <children>
@@ -14,10 +20,4 @@
          </children>
       </Pane>
    </children>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
 </GridPane>

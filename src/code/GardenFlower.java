@@ -11,9 +11,9 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 
 public class GardenFlower implements Flower{
-    Point2D location = null;
-    boolean hasNector = true;
-    int energyLevel = 0;
+    private Point2D location = null;
+    private boolean hasNector = true;
+    private int energyLevel = 0;
     ImageView imageView;
 
     public GardenFlower(Point2D location, boolean hasNector, int energyLevel, ImageView imageView) {
