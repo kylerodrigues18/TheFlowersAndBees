@@ -12,7 +12,7 @@
 /.idea/
 
 # common IDE-generated files and folders to ignore
-workspace.xml
+.idea/workspace.xml
 bin/
 out/
 .classpath
