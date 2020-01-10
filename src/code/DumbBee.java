@@ -26,7 +26,7 @@ public class DumbBee extends AbstractBee {
      * Method that makes the bee move in a repeating pattern (square or circle).
      */
     @Override
-    public void move() {
+    public void move(Point2D currentLocation) {
 
     }
 }

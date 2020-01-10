@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
  * Interface for the AbstractBee to implement which requires method stubs to be defined.
  */
 public interface Bee {
-    void move();
+    void move(Point2D location);
 
     void changeEnergyLevel(int energyLevel);
 
@@ -22,5 +22,9 @@ public interface Bee {
 
     Point2D getLocation();
 
+    void setLocation(Point2D location);
+
     ImageView getImageView();
+
+    int getMoveDistance();
 }

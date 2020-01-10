@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 /**
  * Class which inherits methods & attributes from AbstractBee and overrides move() method.
  */
-public class SmartBee extends AbstractBee{
+public class SmartBee extends AbstractBee {
 
     /**
      * Constructor for SmartBee which uses AbstractBee's constructor through super.
@@ -26,7 +26,13 @@ public class SmartBee extends AbstractBee{
      * Method that makes the bee move towards the closest flower.
      */
     @Override
-    public void move() {
-        //TODO
+    public void move(Point2D flowerLocation) {
+        Point2D currentLocation = getLocation();
+        double angle = currentLocation.angle(flowerLocation);
+        System.out.println(angle);
+        Point2D newLocation = new Point2D(Math.cos(angle) * getMoveDistance(), Math.sin(angle) * getMoveDistance());
+        setLocation(newLocation);
+        imageView.setLayoutX(newLocation.getX());
+        imageView.setLayoutY(newLocation.getY());
     }
 }

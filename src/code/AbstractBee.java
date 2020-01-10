@@ -14,9 +14,9 @@ import javafx.scene.image.ImageView;
  * Abstract class that implements Bee interface and defines multiple methods.
  */
 public abstract class AbstractBee implements Bee {
-    Point2D location = null;
-    int energyLevel = 10;
-    int moveDistance = 20;
+    private Point2D location = null;
+    private int energyLevel = 10;
+    private int moveDistance = 20;
     ImageView imageView;
 
     /**
@@ -37,7 +37,7 @@ public abstract class AbstractBee implements Bee {
      * Method that controls the bees movement on the 2d plane.
      */
     @Override
-    public void move() {
+    public void move(Point2D location) {
         //TODO
     }
 
@@ -69,11 +69,27 @@ public abstract class AbstractBee implements Bee {
     }
 
     /**
+     * Set method for Point2D location.
+     */
+    @Override
+    public void setLocation(Point2D location) {
+        this.location = location;
+    }
+
+    /**
      * Accessor method for imageView for the bee object.
      * @return ImageView object
      */
     @Override
     public ImageView getImageView(){
         return imageView;
+    }
+
+    /**
+     * Accessor method for retrieving move distance
+     * @return moveDistance
+     */
+    public int getMoveDistance() {
+        return moveDistance;
     }
 }

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="91d413ac-d132-44fc-afbc-5064349713c2" name="Default Changelist" comment="">
+    <list default="true" id="fb0d6129-0bf7-4ebd-ab12-b899477158b1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/code/AbstractBee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/AbstractBee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/code/Bee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/Bee.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/code/DumbBee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/DumbBee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/code/GardenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/GardenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/code/GardenFlower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/GardenFlower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/code/SmartBee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/SmartBee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/code/garden.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/code/garden.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +43,13 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="C:/bin/jdk-11.0.5/lib" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -50,6 +63,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="code.Main" />
       <module name="TheFlowersAndBees" />
+      <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules=javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="code.*" />
@@ -96,6 +110,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1032" y="177" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1576184153359" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578627744999">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578627744999" />
     <state x="765" y="222" key="#com.intellij.ide.util.MemberChooser" timestamp="1576476767344">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -112,26 +130,42 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1119" y="327" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1576705503599" />
-    <state width="1877" height="259" key="GridCell.Tab.0.bottom" timestamp="1578605474072">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1578633139643">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="259" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578605474072" />
-    <state width="1877" height="259" key="GridCell.Tab.0.center" timestamp="1578605474071">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578633139643" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1578633139643">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="259" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578605474071" />
-    <state width="1877" height="259" key="GridCell.Tab.0.left" timestamp="1578605474071">
+    <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578633139643" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1578633139643">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="259" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578605474071" />
-    <state width="1877" height="259" key="GridCell.Tab.0.right" timestamp="1578605474072">
+    <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578633139643" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1578633139643">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="259" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578605474072" />
-    <state x="880" y="160" key="SettingsEditor" timestamp="1578548525953">
+    <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578633139643" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1578631148133">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="880" y="160" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1578548525953" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578631148133" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1578631148133">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578631148133" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1578631148133">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578631148133" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1578631148133">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578631148133" />
+    <state x="568" y="120" key="SettingsEditor" timestamp="1578627634480">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="568" y="120" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1578627634480" />
     <state x="342" y="94" key="new project wizard" timestamp="1576705505374">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
