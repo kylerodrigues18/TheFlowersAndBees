@@ -129,13 +129,13 @@ public class GardenController {
             ImageView beeImage = new ImageView(new Image(chooseImage.getBeeFile()));
             beeImage.setPreserveRatio(true);
             beeImage.setFitWidth(30.0);
-            beeImage.setX(x);
-            beeImage.setY(y);
             if (i == 0) {
                 SmartBee smartBee = new SmartBee(location, energyLevel, moveDistance, beeImage);
+                smartBee.setLocation(new Point2D(x, y));
                 bees.add(smartBee);
             } else {
                 DumbBee dumbBee = new DumbBee(location, energyLevel, moveDistance, beeImage);
+                dumbBee.setLocation(new Point2D(x, y));
                 bees.add(dumbBee);
             }
         }
@@ -149,8 +149,6 @@ public class GardenController {
     @FXML
     public void onKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.SPACE || keyEvent.getCode() == KeyCode.RIGHT) {
-            Point2D flowerLocation = flowers.get(flowerCounter).getLocation();
-            System.out.println("hey");
             for (int i = 0; i < bees.size(); i++) {
                 for (GardenFlower gardenFlower : flowers) {
                     Point2D tempFlowerLocation = gardenFlower.getLocation();
@@ -164,9 +162,8 @@ public class GardenController {
                         }
                     }
                 }
-                if (bees.get(i).getLocation().distance(flowerLocation) > 15) {
-                    bees.get(i).move(flowerLocation);
-                }
+                Point2D flowerLocation = flowers.get(flowerCounter).getLocation();
+                bees.get(i).move(flowerLocation);
             }
         }
     }
