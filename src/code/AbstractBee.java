@@ -8,6 +8,7 @@
 package code;
 
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -17,7 +18,9 @@ public abstract class AbstractBee implements Bee {
     private Point2D location = null;
     private int energyLevel = 10;
     private int moveDistance = 20;
-    ImageView imageView;
+    private ImageView imageView;
+    private double beeX;
+    private double beeY;
 
     /**
      * Constructor for AbstractBee.
@@ -74,6 +77,7 @@ public abstract class AbstractBee implements Bee {
     @Override
     public void setLocation(Point2D location) {
         this.location = location;
+        setBeeLocation(location.getX(), location.getY());
     }
 
     /**
@@ -91,5 +95,12 @@ public abstract class AbstractBee implements Bee {
      */
     public int getMoveDistance() {
         return moveDistance;
+    }
+
+    private void setBeeLocation(double beeX, double beeY) {
+        this.beeX = beeX;
+        this.beeY = beeY;
+        imageView.setLayoutX(beeX);
+        imageView.setLayoutY(beeY);
     }
 }
