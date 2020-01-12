@@ -50,7 +50,7 @@ public abstract class AbstractBee implements Bee {
      */
     @Override
     public void changeEnergyLevel(int energyChange) {
-        energyLevel = energyLevel - energyChange;
+        energyLevel = energyLevel + energyChange;
     }
 
     /**

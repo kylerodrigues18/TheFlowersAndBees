@@ -123,7 +123,7 @@ public class GardenController {
 
 
             int energyLevel = (int) (Math.random() * 3) + 1;
-            int moveDistance = (int) (Math.random() * 10) + 1;
+            int moveDistance = 10;
 
             Point2D location = new Point2D(x, y);
             ImageView beeImage = new ImageView(new Image(chooseImage.getBeeFile()));
@@ -135,23 +135,27 @@ public class GardenController {
                 bees.add(smartBee);
             } else {
                 DumbBee dumbBee = new DumbBee(location, energyLevel, moveDistance, beeImage);
-                dumbBee.setLocation(new Point2D(x, y));
+                dumbBee.setLocation(new Point2D(x, 200));
                 bees.add(dumbBee);
             }
         }
     }
 
     /**
-     * Method that is called on key press.
+     * Method that is called on key press to simulate movement of bees.
+     * Also handles collisions that occurs
      *
      * @param keyEvent KeyEvent object
      */
     @FXML
     public void onKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.SPACE || keyEvent.getCode() == KeyCode.RIGHT) {
+            // Loop through each bee to make them move
             for (int i = 0; i < bees.size(); i++) {
+                // Loop through each flower for collisions
                 for (GardenFlower gardenFlower : flowers) {
                     Point2D tempFlowerLocation = gardenFlower.getLocation();
+                    // If collision, change bee energy level
                     if (bees.get(i).getLocation().distance(tempFlowerLocation) < 15) {
                         bees.get(i).changeEnergyLevel(gardenFlower.getEnergyLevel());
                         if (i == 0) {
@@ -162,8 +166,26 @@ public class GardenController {
                         }
                     }
                 }
+                // Loop through each bee for collisions, also turns bee invisible if it is out of energy
+                for (int a = 0; a < bees.size(); a++) {
+                    if (i != a) {
+                        Point2D firstBeelocation = bees.get(i).getLocation();
+                        Point2D secondBeeLocation = bees.get(a).getLocation();
+                        if (firstBeelocation.distance(secondBeeLocation) < 15) {
+                            bees.get(a).changeEnergyLevel(-1);
+                        }
+                    }
+                }
                 Point2D flowerLocation = flowers.get(flowerCounter).getLocation();
                 bees.get(i).move(flowerLocation);
+            }
+            // Remove bees that have no energy (energy <= 0)
+            for (int i = 0; i < bees.size(); i++) {
+                if(bees.get(i).getEnergyLevel() <= 0) {
+                    bees.get(i).getImageView().setVisible(false);
+                    bees.remove(i);
+                    i--;
+                }
             }
         }
     }

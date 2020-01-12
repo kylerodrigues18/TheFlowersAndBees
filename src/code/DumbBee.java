@@ -29,9 +29,7 @@ public class DumbBee extends AbstractBee {
     @Override
     public void move(Point2D flowerLocation) {
         double currentLocation = getLocation().getX();
-        System.out.println(currentLocation);
         double nextX = (moveRight) ? currentLocation + getMoveDistance() : currentLocation - getMoveDistance();
-
         if(nextX > 550) {
             moveRight = false;
             nextX = 549;
@@ -39,7 +37,6 @@ public class DumbBee extends AbstractBee {
             moveRight = true;
             nextX = 0;
         }
-        System.out.println("yee");
         setLocation(new Point2D(nextX, getLocation().getY()));
     }
     public void setReferenceBee(AbstractBee bee) {
