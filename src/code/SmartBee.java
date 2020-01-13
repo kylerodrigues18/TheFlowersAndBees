@@ -31,14 +31,24 @@ public class SmartBee extends AbstractBee {
         Point2D flowerLocation = targetFlower.getLocation();
         Point2D beeLocation = getLocation();
         double distance = beeLocation.distance(flowerLocation);
-        if(distance < 10) {
+        changeEnergyLevel(0);
+        if(distance < 15) {
             setLocation(new Point2D(flowerLocation.getX(), flowerLocation.getY()));
             return true;
         } else {
-            changeEnergyLevel(-1);
-            double changeInX = (beeLocation.getX() - flowerLocation.getX());
-            double changeInY = (beeLocation.getY() - flowerLocation.getY());
-            setLocation(new Point2D(beeLocation.getX() + 5*(changeInX/changeInX), beeLocation.getY() + 5*(changeInY/changeInY)));
+            if(flowerLocation.getY() - 5 > beeLocation.getY()) {
+                setLocation(new Point2D(beeLocation.getX(), beeLocation.getY() + 10));
+                return false;
+            } else if(flowerLocation.getY() + 5 < beeLocation.getY()) {
+                setLocation(new Point2D(beeLocation.getX(), beeLocation.getY() - 10));
+                return false;
+            } else if(flowerLocation.getX() > beeLocation.getX()) {
+                setLocation(new Point2D(beeLocation.getX() + 10, beeLocation.getY()));
+                return false;
+            } else if(flowerLocation.getX() <= beeLocation.getX()){
+                setLocation(new Point2D(beeLocation.getX() - 10, beeLocation.getY()));
+                return false;
+            }
             return false;
         }
     }
