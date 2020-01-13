@@ -18,6 +18,8 @@ public interface Flower {
 
     void setNectorValue(boolean nectorValue);
 
+    boolean hasNector();
+
     Point2D getLocation();
 
     ImageView getImageView();

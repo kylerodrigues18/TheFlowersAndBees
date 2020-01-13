@@ -122,7 +122,7 @@ public class GardenController {
             }
 
 
-            int energyLevel = (int) (Math.random() * 3) + 1;
+            int energyLevel = (int) (Math.random() * 100) + 1;
             int moveDistance = 10;
 
             Point2D location = new Point2D(x, y);
@@ -131,11 +131,12 @@ public class GardenController {
             beeImage.setFitWidth(30.0);
             if (i == 0) {
                 SmartBee smartBee = new SmartBee(location, energyLevel, moveDistance, beeImage);
-                smartBee.setLocation(new Point2D(x, y));
+                smartBee.setLocation(location);
+                smartBee.setTargetFlower(flowers.get((int) (Math.random()*flowers.size())));
                 bees.add(smartBee);
             } else {
                 DumbBee dumbBee = new DumbBee(location, energyLevel, moveDistance, beeImage);
-                dumbBee.setLocation(new Point2D(x, 200));
+                dumbBee.setLocation(location);
                 bees.add(dumbBee);
             }
         }
@@ -158,26 +159,32 @@ public class GardenController {
                     // If collision, change bee energy level
                     if (bees.get(i).getLocation().distance(tempFlowerLocation) < 15) {
                         bees.get(i).changeEnergyLevel(gardenFlower.getEnergyLevel());
-                        if (i == 0) {
-                            flowerCounter++;
-                            if (flowerCounter >= bees.size()) {
-                                flowerCounter = 0;
-                            }
-                        }
+                        gardenFlower.setNectorValue(false);
                     }
                 }
+
                 // Loop through each bee for collisions, also turns bee invisible if it is out of energy
                 for (int a = 0; a < bees.size(); a++) {
                     if (i != a) {
-                        Point2D firstBeelocation = bees.get(i).getLocation();
+                        Point2D firstBeeLocation = bees.get(i).getLocation();
                         Point2D secondBeeLocation = bees.get(a).getLocation();
-                        if (firstBeelocation.distance(secondBeeLocation) < 15) {
+                        if (firstBeeLocation.distance(secondBeeLocation) < 15) {
                             bees.get(a).changeEnergyLevel(-1);
                         }
                     }
                 }
-                Point2D flowerLocation = flowers.get(flowerCounter).getLocation();
-                bees.get(i).move(flowerLocation);
+
+                boolean targetReached = bees.get(i).move();
+
+                if(targetReached && bees.get(i) instanceof SmartBee) {
+                    ((SmartBee) bees.get(i)).getTargetFlower().setNectorValue(false);
+
+                    Flower targetFlower = flowers.get((int) (Math.random()*flowers.size()));
+                    while(!targetFlower.hasNector()) {
+                        targetFlower = flowers.get((int) (Math.random()*flowers.size()));
+                    }
+                    ((SmartBee) bees.get(i)).setTargetFlower(targetFlower);
+                }
             }
             // Remove bees that have no energy (energy <= 0)
             for (int i = 0; i < bees.size(); i++) {

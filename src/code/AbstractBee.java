@@ -40,8 +40,8 @@ public abstract class AbstractBee implements Bee {
      * Method that controls the bees movement on the 2d plane.
      */
     @Override
-    public void move(Point2D location) {
-        //TODO
+    public boolean move() {
+        return false;
     }
 
     /**

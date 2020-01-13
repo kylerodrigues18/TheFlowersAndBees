@@ -27,7 +27,7 @@ public class DumbBee extends AbstractBee {
      * Method that makes the bee move in a repeating pattern (square or circle).
      */
     @Override
-    public void move(Point2D flowerLocation) {
+    public boolean move() {
         double currentLocation = getLocation().getX();
         double nextX = (moveRight) ? currentLocation + getMoveDistance() : currentLocation - getMoveDistance();
         if(nextX > 550) {
@@ -38,6 +38,10 @@ public class DumbBee extends AbstractBee {
             nextX = 0;
         }
         setLocation(new Point2D(nextX, getLocation().getY()));
+
+        changeEnergyLevel(-1);
+
+        return false;
     }
     public void setReferenceBee(AbstractBee bee) {
 

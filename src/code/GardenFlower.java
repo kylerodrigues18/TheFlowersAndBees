@@ -29,8 +29,13 @@ public class GardenFlower implements Flower{
     }
 
     @Override
-    public void setNectorValue(boolean nectorValue) {
-        hasNector = nectorValue;
+    public void setNectorValue(boolean nectorBoolean) {
+        hasNector = nectorBoolean;
+    }
+
+    @Override
+    public boolean hasNector() {
+        return hasNector;
     }
 
     @Override

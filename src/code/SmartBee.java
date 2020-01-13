@@ -14,6 +14,8 @@ import javafx.scene.image.ImageView;
  * Class which inherits methods & attributes from AbstractBee and overrides move() method.
  */
 public class SmartBee extends AbstractBee {
+    Flower targetFlower;
+
     /**
      * Constructor for SmartBee which uses AbstractBee's constructor through super.
      */
@@ -25,10 +27,27 @@ public class SmartBee extends AbstractBee {
      * Method that makes the bee move towards the closest flower.
      */
     @Override
-    public void move(Point2D flowerLocation) {
-        Point2D currentLocation = getLocation();
-        double angle = Math.toDegrees(Math.atan2(flowerLocation.getY() - currentLocation.getY(),  flowerLocation.getX() - currentLocation.getX()));
-        Point2D newLocation = new Point2D(currentLocation.getX() + (Math.cos(angle) * getMoveDistance()), currentLocation.getY() + (Math.sin(angle) * getMoveDistance()));
-        setLocation(newLocation);
+    public boolean move() {
+        Point2D flowerLocation = targetFlower.getLocation();
+        Point2D beeLocation = getLocation();
+        double distance = beeLocation.distance(flowerLocation);
+        if(distance < 10) {
+            setLocation(new Point2D(flowerLocation.getX(), flowerLocation.getY()));
+            return true;
+        } else {
+            changeEnergyLevel(-1);
+            double changeInX = (beeLocation.getX() - flowerLocation.getX());
+            double changeInY = (beeLocation.getY() - flowerLocation.getY());
+            setLocation(new Point2D(beeLocation.getX() + 5*(changeInX/changeInX), beeLocation.getY() + 5*(changeInY/changeInY)));
+            return false;
+        }
+    }
+
+    public void setTargetFlower(Flower flower) {
+        targetFlower = flower;
+    }
+
+    public Flower getTargetFlower() {
+        return targetFlower;
     }
 }
