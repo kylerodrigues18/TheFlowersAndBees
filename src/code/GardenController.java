@@ -10,6 +10,7 @@ package code;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -36,6 +37,8 @@ public class GardenController {
     private Label arrowKeyLabel;
     @FXML
     private ImageView gameoverImage;
+    @FXML
+    private ListView infoPanel;
 
     /**
      * Method that initializes gardenPane and calls flowers and bees to be initialized.
@@ -95,7 +98,6 @@ public class GardenController {
             } else {
                 energy = energy * -1;
                 flowerImage = new ImageView(new Image("\\images\\" + "flower-2.jpg"));
-
             }
             Point2D location = new Point2D(x, y);
             flowerImage.setPreserveRatio(true);
@@ -208,6 +210,23 @@ public class GardenController {
                     bees.remove(i);
                     i--;
                 }
+            }
+            infoPanel.getItems().clear();
+            infoPanel.setMouseTransparent( true );
+            infoPanel.setFocusTraversable( false );
+            infoPanel.getItems().add("Bees: ");
+            // Update InfoView
+            for (int i = 0; i < bees.size(); i++) {
+                String s = "";
+                s = "X: "+ bees.get(i).getLocation().getX() + " Y: " + bees.get(i).getLocation().getY() + " Energy: " + bees.get(i).getEnergyLevel();
+                infoPanel.getItems().add(s);
+            }
+
+            infoPanel.getItems().add("Flowers: ");
+            for (int i = 0; i < flowers.size(); i++) {
+                String s = "";
+                s = "X: "+ flowers.get(i).getLocation().getX() + " Y: " + flowers.get(i).getLocation().getY() + " Energy: " + flowers.get(i).getEnergyLevel();
+                infoPanel.getItems().add(s);
             }
         }
     }
