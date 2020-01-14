@@ -47,6 +47,14 @@ public class GardenController {
     public void initialize() {
         gardenPane.setStyle("-fx-background-color: linear-gradient(to bottom right, derive(forestgreen, 20%), derive(forestgreen, -40%));");
 
+        // init infoPanel data
+        infoPanel.getItems().add("We have 2 types of Bees: ");
+        infoPanel.getItems().add("-Curly Antenna: moves to flowers");
+        infoPanel.getItems().add("-Circle Antenna: moves inline");
+        infoPanel.getItems().add("We have 2 types of Flowers: ");
+        infoPanel.getItems().add("-White: replenishes bee energy");
+        infoPanel.getItems().add("-Purple: drains bee energy");
+
         initFlowers(10);
         for (GardenFlower flower : flowers) {
             gardenPane.getChildren().add(flower.getImageView());
@@ -228,6 +236,14 @@ public class GardenController {
                 s = "X: "+ flowers.get(i).getLocation().getX() + " Y: " + flowers.get(i).getLocation().getY() + " Energy: " + flowers.get(i).getEnergyLevel();
                 infoPanel.getItems().add(s);
             }
+
+            infoPanel.getItems().add("");
+            infoPanel.getItems().add("We have 2 types of Bees: ");
+            infoPanel.getItems().add("-Curly Antenna: moves to flowers");
+            infoPanel.getItems().add("-Circle Antenna: moves inline");
+            infoPanel.getItems().add("We have 2 types of Flowers: ");
+            infoPanel.getItems().add("-White: replenishes bee energy");
+            infoPanel.getItems().add("-Purple: drains bee energy");
         }
     }
 }
