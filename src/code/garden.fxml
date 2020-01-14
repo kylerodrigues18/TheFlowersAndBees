@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" hgap="10" onKeyPressed="#onKeyPressed" vgap="10" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.GardenController">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onKeyPressed" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.GardenController">
    <children>
-      <Pane fx:id="gardenPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="600.0">
+      <Pane fx:id="gardenPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
          <children>
-            <Label layoutX="28.0" layoutY="562.0" text="Use Right Arrow Key's to Simulate one Tick" />
+            <Label fx:id="arrowKeyLabel" layoutX="28.0" layoutY="562.0" text="Use Right Arrow Key's to Simulate one Tick" />
+            <ImageView fx:id="gameoverImage" fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../images/gameover.jpg" />
+               </image></ImageView>
          </children>
       </Pane>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="200.0" GridPane.columnIndex="1" />
    </children>
-</GridPane>
+</HBox>

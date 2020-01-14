@@ -9,6 +9,7 @@ package code;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -24,10 +25,17 @@ public class GardenController {
 
     private ArrayList<GardenFlower> flowers;
     private ArrayList<AbstractBee> bees;
-    private int flowerCounter;
+    private int flowerCount = 0;
+    private boolean gameover = false;
+
+
 
     @FXML
     private Pane gardenPane;
+    @FXML
+    private Label arrowKeyLabel;
+    @FXML
+    private ImageView gameoverImage;
 
     /**
      * Method that initializes gardenPane and calls flowers and bees to be initialized.
@@ -36,16 +44,19 @@ public class GardenController {
     public void initialize() {
         gardenPane.setStyle("-fx-background-color: linear-gradient(to bottom right, derive(forestgreen, 20%), derive(forestgreen, -40%));");
 
-        initFlowers(4);
+        initFlowers(10);
         for (GardenFlower flower : flowers) {
             gardenPane.getChildren().add(flower.getImageView());
         }
 
-        initBees(3);
+        initBees(5);
         for (AbstractBee bee : bees) {
             gardenPane.getChildren().add(bee.getImageView());
         }
         gardenPane.setFocusTraversable(true);
+
+        gameoverImage.setFitHeight(150);
+        gameoverImage.setVisible(false);
     }
 
     /**
@@ -54,9 +65,7 @@ public class GardenController {
      * @param num how many flowers will be initialized
      */
     private void initFlowers(int num) {
-        ChooseImage chooseImage = new ChooseImage();
         flowers = new ArrayList<>();
-        flowerCounter = 0;
         for (int i = 0; i < num; i++) {
             //set location and energy
 
@@ -67,8 +76,8 @@ public class GardenController {
             while (collisionFlag) {
                 collisionFlag = false;
                 for (Flower flower : flowers) {
-                    if (Math.abs(x - flower.getLocation().getX()) <= 25 &&
-                            Math.abs(y - flower.getLocation().getY()) <= 25) {
+                    if (Math.abs(x - flower.getLocation().getX()) <= 30 &&
+                            Math.abs(y - flower.getLocation().getY()) <= 30) {
                         x = (int) (Math.random() * 510);
                         y = (int) (Math.random() * 510);
                         collisionFlag = true;
@@ -80,16 +89,20 @@ public class GardenController {
 
             // sets half the flowers to have negative energy
             // when the bee collides with a negative flower, it will decrease energy of the bee
+            ImageView flowerImage;
             if (i % 2 == 0) {
+                flowerImage = new ImageView(new Image("\\images\\" + "flower-1.jpg"));
+            } else {
                 energy = energy * -1;
+                flowerImage = new ImageView(new Image("\\images\\" + "flower-2.jpg"));
+
             }
             Point2D location = new Point2D(x, y);
-            ImageView flower = new ImageView(new Image(chooseImage.getFlowerFile()));
-            flower.setPreserveRatio(true);
-            flower.setFitWidth(30.0);
-            flower.setX(x);
-            flower.setY(y);
-            GardenFlower gardenFlower = new GardenFlower(location, true, energy, flower);
+            flowerImage.setPreserveRatio(true);
+            flowerImage.setFitWidth(30.0);
+            flowerImage.setX(x);
+            flowerImage.setY(y);
+            GardenFlower gardenFlower = new GardenFlower(location, true, energy, flowerImage);
             flowers.add(gardenFlower);
         }
     }
@@ -100,7 +113,6 @@ public class GardenController {
      * @param num how many bees will be initialized
      */
     private void initBees(int num) {
-        ChooseImage chooseImage = new ChooseImage();
         bees = new ArrayList<>();
         for (int i = 0; i < num; i++) {
             //set location and energy
@@ -112,8 +124,8 @@ public class GardenController {
             while (collisionFlag) {
                 collisionFlag = false;
                 for (Bee bee : bees) {
-                    if (Math.abs(x - bee.getLocation().getX()) <= 25 &&
-                            Math.abs(y - bee.getLocation().getY()) <= 25) {
+                    if (Math.abs(x - bee.getLocation().getX()) <= 30 &&
+                            Math.abs(y - bee.getLocation().getY()) <= 30) {
                         x = (int) (Math.random() * 510);
                         y = (int) (Math.random() * 510);
                         collisionFlag = true;
@@ -126,18 +138,20 @@ public class GardenController {
             int moveDistance = 10;
 
             Point2D location = new Point2D(x, y);
-            ImageView beeImage = new ImageView(new Image(chooseImage.getBeeFile()));
-            beeImage.setPreserveRatio(true);
-            beeImage.setFitWidth(30.0);
-            if (i == 0) {
+
+            if (i % 2 == 0) {
+                ImageView beeImage = new ImageView(new Image("\\images\\" + "bee-1" + ".jpg"));
+                beeImage.setPreserveRatio(true);
+                beeImage.setFitWidth(30.0);
+                DumbBee dumbBee = new DumbBee(location, energyLevel, moveDistance, beeImage);
+                bees.add(dumbBee);
+            } else {
+                ImageView beeImage = new ImageView(new Image("\\images\\" + "bee-2" + ".jpg"));
+                beeImage.setPreserveRatio(true);
+                beeImage.setFitWidth(30.0);
                 SmartBee smartBee = new SmartBee(location, energyLevel, moveDistance, beeImage);
-                smartBee.setLocation(location);
                 smartBee.setTargetFlower(flowers.get((int) (Math.random()*flowers.size())));
                 bees.add(smartBee);
-            } else {
-                DumbBee dumbBee = new DumbBee(location, energyLevel, moveDistance, beeImage);
-                dumbBee.setLocation(location);
-                bees.add(dumbBee);
             }
         }
     }
@@ -150,18 +164,9 @@ public class GardenController {
      */
     @FXML
     public void onKeyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.SPACE || keyEvent.getCode() == KeyCode.RIGHT) {
+        if ((keyEvent.getCode() == KeyCode.SPACE || keyEvent.getCode() == KeyCode.RIGHT) && !gameover) {
             // Loop through each bee to make them move
             for (int i = 0; i < bees.size(); i++) {
-                // Loop through each flower for collisions
-                for (GardenFlower gardenFlower : flowers) {
-                    Point2D tempFlowerLocation = gardenFlower.getLocation();
-                    // If collision, change bee energy level
-                    if (bees.get(i).getLocation().distance(tempFlowerLocation) < 15) {
-                        bees.get(i).changeEnergyLevel(gardenFlower.getEnergyLevel());
-                        gardenFlower.setNectorValue(false);
-                    }
-                }
 
                 // Loop through each bee for collisions, also turns bee invisible if it is out of energy
                 for (int a = 0; a < bees.size(); a++) {
@@ -169,7 +174,7 @@ public class GardenController {
                         Point2D firstBeeLocation = bees.get(i).getLocation();
                         Point2D secondBeeLocation = bees.get(a).getLocation();
                         if (firstBeeLocation.distance(secondBeeLocation) < 15) {
-                            bees.get(a).changeEnergyLevel(-1);
+                            bees.get(a).changeEnergyLevel(-5);
                         }
                     }
                 }
@@ -177,12 +182,21 @@ public class GardenController {
                 boolean targetReached = bees.get(i).move();
 
                 if(targetReached && bees.get(i) instanceof SmartBee) {
+                    bees.get(i).changeEnergyLevel(((SmartBee) bees.get(i)).getTargetFlower().getEnergyLevel());
                     ((SmartBee) bees.get(i)).getTargetFlower().setNectorValue(false);
 
                     Flower targetFlower = flowers.get((int) (Math.random()*flowers.size()));
+
                     while(!targetFlower.hasNector()) {
                         targetFlower = flowers.get((int) (Math.random()*flowers.size()));
                     }
+                    flowerCount++;
+
+                    if(flowerCount == flowers.size() - 1) {
+                        gameover = true;
+                        gameoverImage.setVisible(true);
+                    }
+
                     ((SmartBee) bees.get(i)).setTargetFlower(targetFlower);
                 }
             }
