@@ -10,6 +10,7 @@ package code;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -36,6 +37,8 @@ public class GardenController {
     private Label arrowKeyLabel;
     @FXML
     private ImageView gameoverImage;
+    @FXML
+    private ListView infoPanel;
 
     /**
      * Method that initializes gardenPane and calls flowers and bees to be initialized.
@@ -43,6 +46,14 @@ public class GardenController {
     @FXML
     public void initialize() {
         gardenPane.setStyle("-fx-background-color: linear-gradient(to bottom right, derive(forestgreen, 20%), derive(forestgreen, -40%));");
+
+        // init infoPanel data
+        infoPanel.getItems().add("We have 2 types of Bees: ");
+        infoPanel.getItems().add("-Curly Antenna: moves to flowers");
+        infoPanel.getItems().add("-Circle Antenna: moves inline");
+        infoPanel.getItems().add("We have 2 types of Flowers: ");
+        infoPanel.getItems().add("-White: replenishes bee energy");
+        infoPanel.getItems().add("-Purple: drains bee energy");
 
         initFlowers(10);
         for (GardenFlower flower : flowers) {
@@ -208,6 +219,31 @@ public class GardenController {
                     i--;
                 }
             }
+            infoPanel.getItems().clear();
+            infoPanel.setMouseTransparent( true );
+            infoPanel.setFocusTraversable( false );
+            infoPanel.getItems().add("Bees: ");
+            // Update InfoView
+            for (int i = 0; i < bees.size(); i++) {
+                String s = "";
+                s = "X: "+ bees.get(i).getLocation().getX() + " Y: " + bees.get(i).getLocation().getY() + " Energy: " + bees.get(i).getEnergyLevel();
+                infoPanel.getItems().add(s);
+            }
+
+            infoPanel.getItems().add("Flowers: ");
+            for (int i = 0; i < flowers.size(); i++) {
+                String s = "";
+                s = "X: "+ flowers.get(i).getLocation().getX() + " Y: " + flowers.get(i).getLocation().getY() + " Energy: " + flowers.get(i).getEnergyLevel();
+                infoPanel.getItems().add(s);
+            }
+
+            infoPanel.getItems().add("");
+            infoPanel.getItems().add("We have 2 types of Bees: ");
+            infoPanel.getItems().add("-Curly Antenna: moves to flowers");
+            infoPanel.getItems().add("-Circle Antenna: moves inline");
+            infoPanel.getItems().add("We have 2 types of Flowers: ");
+            infoPanel.getItems().add("-White: replenishes bee energy");
+            infoPanel.getItems().add("-Purple: drains bee energy");
         }
     }
 }
