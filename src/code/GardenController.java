@@ -85,7 +85,7 @@ public class GardenController {
                 }
             }
 
-            int energy = (int) (Math.random() * 3) + 1;
+            int energy = (int) (Math.random() * 10) + 10;
 
             // sets half the flowers to have negative energy
             // when the bee collides with a negative flower, it will decrease energy of the bee
@@ -95,7 +95,6 @@ public class GardenController {
             } else {
                 energy = energy * -1;
                 flowerImage = new ImageView(new Image("\\images\\" + "flower-2.jpg"));
-
             }
             Point2D location = new Point2D(x, y);
             flowerImage.setPreserveRatio(true);
