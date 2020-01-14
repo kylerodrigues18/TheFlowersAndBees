@@ -19,8 +19,6 @@ public abstract class AbstractBee implements Bee {
     private int energyLevel = 10;
     private int moveDistance = 20;
     private ImageView imageView;
-    private double beeX;
-    private double beeY;
 
     /**
      * Constructor for AbstractBee.
@@ -34,6 +32,8 @@ public abstract class AbstractBee implements Bee {
         this.energyLevel = energyLevel;
         this.moveDistance = moveDistance;
         this.imageView = imageView;
+        imageView.setLayoutX(location.getX());
+        imageView.setLayoutY(location.getY());
     }
 
     /**
@@ -77,7 +77,8 @@ public abstract class AbstractBee implements Bee {
     @Override
     public void setLocation(Point2D location) {
         this.location = location;
-        setBeeLocation(location.getX(), location.getY());
+        imageView.setLayoutX(location.getX());
+        imageView.setLayoutY(location.getY());
     }
 
     /**
@@ -95,12 +96,5 @@ public abstract class AbstractBee implements Bee {
      */
     public int getMoveDistance() {
         return moveDistance;
-    }
-
-    private void setBeeLocation(double beeX, double beeY) {
-        this.beeX = beeX;
-        this.beeY = beeY;
-        imageView.setLayoutX(beeX);
-        imageView.setLayoutY(beeY);
     }
 }

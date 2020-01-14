@@ -140,13 +140,13 @@ public class GardenController {
             Point2D location = new Point2D(x, y);
 
             if (i % 2 == 0) {
-                ImageView beeImage = new ImageView(new Image("\\images\\" + "bee-1" + ".jpg"));
+                ImageView beeImage = new ImageView(new Image("\\images\\" + "bee-1.jpg"));
                 beeImage.setPreserveRatio(true);
                 beeImage.setFitWidth(30.0);
                 DumbBee dumbBee = new DumbBee(location, energyLevel, moveDistance, beeImage);
                 bees.add(dumbBee);
             } else {
-                ImageView beeImage = new ImageView(new Image("\\images\\" + "bee-2" + ".jpg"));
+                ImageView beeImage = new ImageView(new Image("\\images\\" + "bee-2.jpg"));
                 beeImage.setPreserveRatio(true);
                 beeImage.setFitWidth(30.0);
                 SmartBee smartBee = new SmartBee(location, energyLevel, moveDistance, beeImage);
@@ -194,6 +194,7 @@ public class GardenController {
 
                     if(flowerCount == flowers.size() - 1) {
                         gameover = true;
+                        gameoverImage.toFront();
                         gameoverImage.setVisible(true);
                     }
 
