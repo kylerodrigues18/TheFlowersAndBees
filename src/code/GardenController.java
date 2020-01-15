@@ -162,7 +162,7 @@ public class GardenController {
                 beeImage.setPreserveRatio(true);
                 beeImage.setFitHeight(imageSize);
                 SmartBee smartBee = new SmartBee(location, randomEnergyPoints, moveDistance, beeImage);
-                smartBee.setTargetFlower(flowers.get((int) (Math.random()*flowers.size())));
+                smartBee.setTargetFlower(flowers.get((int) (Math.random() * flowers.size())));
                 bees.add(smartBee);
             } else {
                 ImageView beeImage = new ImageView(new Image("\\images\\" + "bee-2.png"));
@@ -193,7 +193,7 @@ public class GardenController {
                     if (i != a) {
                         Point2D firstBeeLocation = bees.get(i).getLocation();
                         Point2D secondBeeLocation = bees.get(a).getLocation();
-                        if (firstBeeLocation.distance(secondBeeLocation) < imageSize/2.0) {
+                        if (firstBeeLocation.distance(secondBeeLocation) < imageSize / 2.0) {
                             bees.get(a).changeEnergyPoints(collisionPoints);
                         }
                     }
@@ -202,17 +202,17 @@ public class GardenController {
                 boolean targetReached = bees.get(i).move();
 
                 // sets targetFlower nectar to zero and changes targetFlower to random one.
-                if(targetReached && bees.get(i) instanceof SmartBee) {
+                if (targetReached && bees.get(i) instanceof SmartBee) {
                     bees.get(i).changeEnergyPoints(((SmartBee) bees.get(i)).getTargetFlower().getNectarPoints());
                     ((SmartBee) bees.get(i)).getTargetFlower().setNectarPoints(0);
 
-                    Flower targetFlower = flowers.get((int) (Math.random()*flowers.size()));
+                    Flower targetFlower = flowers.get((int) (Math.random() * flowers.size()));
                     ((SmartBee) bees.get(i)).setTargetFlower(targetFlower);
                 }
                 // Checks for DumbBee collision with flower
-                if(bees.get(i) instanceof DumbBee) {
+                if (bees.get(i) instanceof DumbBee) {
                     for (int f = 0; f < flowers.size(); f++) {
-                        if (flowers.get(f).getLocation().distance(bees.get(i).getLocation()) < imageSize/2.0) {
+                        if (flowers.get(f).getLocation().distance(bees.get(i).getLocation()) < imageSize / 2.0) {
                             bees.get(i).changeEnergyPoints(flowers.get(f).getNectarPoints());
                             flowers.get(i).setNectarPoints(0);
                         }
@@ -222,37 +222,44 @@ public class GardenController {
 
             // Remove bees that have no energy (energy <= 0)
             for (int i = 0; i < bees.size(); i++) {
-                if(bees.get(i).getEnergyPoints() <= 0) {
+                if (bees.get(i).getEnergyPoints() <= 0) {
                     bees.get(i).getImageView().setVisible(false);
                     bees.remove(i);
                     i--;
                 }
             }
 
-            infoPanel.getItems().clear();
-            infoPanel.setMouseTransparent( true );
-            infoPanel.setFocusTraversable( false );
-            infoPanel.getItems().add("Ticks: " + tick);
-            infoPanel.getItems().add("Bees: ");
-
-            // Update InfoView
-            for (int i = 0; i < bees.size(); i++) {
-                String beeInfo = "X: "+ bees.get(i).getLocation().getX() + " Y: " + bees.get(i).getLocation().getY() + " Energy: " + bees.get(i).getEnergyPoints();
-                infoPanel.getItems().add(beeInfo);
-            }
-
-            infoPanel.getItems().add("Flowers: ");
-            for (int i = 0; i < flowers.size(); i++) {
-                String flowerInfo = "X: "+ flowers.get(i).getLocation().getX() + " Y: " + flowers.get(i).getLocation().getY() + " Nectar: " + flowers.get(i).getNectarPoints();
-                infoPanel.getItems().add(flowerInfo);
-            }
+            updateInfoPanel();
 
             // ends game when all bees are dead.
-            if(bees.size() == 0) {
+            if (bees.size() == 0) {
                 gameoverFlag = true;
                 gameoverImage.toFront();
                 gameoverImage.setVisible(true);
             }
+        }
+    }
+
+    /**
+     * Updates info panel
+     */
+    private void updateInfoPanel() {
+        infoPanel.getItems().clear();
+        infoPanel.setMouseTransparent(true);
+        infoPanel.setFocusTraversable(false);
+        infoPanel.getItems().add("Ticks: " + tick);
+        infoPanel.getItems().add("Bees: ");
+
+        // Update InfoView
+        for (int i = 0; i < bees.size(); i++) {
+            String beeInfo = "X: " + bees.get(i).getLocation().getX() + " Y: " + bees.get(i).getLocation().getY() + " Energy: " + bees.get(i).getEnergyPoints();
+            infoPanel.getItems().add(beeInfo);
+        }
+
+        infoPanel.getItems().add("Flowers: ");
+        for (int i = 0; i < flowers.size(); i++) {
+            String flowerInfo = "X: " + flowers.get(i).getLocation().getX() + " Y: " + flowers.get(i).getLocation().getY() + " Nectar: " + flowers.get(i).getNectarPoints();
+            infoPanel.getItems().add(flowerInfo);
         }
     }
 }
