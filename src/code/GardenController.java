@@ -30,7 +30,7 @@ public class GardenController {
     private int imageSize = 50;
     private int moveDistance = 10;
     private int collisionPoints = 5;
-    private int energyPoints = 100000;
+    private int energyPoints = 300;
     private int nectarPoints = 10;
     private int numBees = 5;
     private int numFlowers = 10;
@@ -60,6 +60,14 @@ public class GardenController {
         infoPanel.getItems().add("-Pink: replenishes bee energy");
         infoPanel.getItems().add("-Purple: drains bee energy");
 
+        arrowKeyLabel.toFront();
+        arrowKeyLabel.setVisible(true);
+
+        gardenPane.setFocusTraversable(true);
+        gameoverImage.setFitWidth(250);
+        gameoverImage.setX(gameoverImage.getX() - 25);
+        gameoverImage.setVisible(false);
+
         initFlowers(numFlowers);
         for (GardenFlower flower : flowers) {
             gardenPane.getChildren().add(flower.getImageView());
@@ -69,11 +77,6 @@ public class GardenController {
         for (AbstractBee bee : bees) {
             gardenPane.getChildren().add(bee.getImageView());
         }
-
-        gardenPane.setFocusTraversable(true);
-        gameoverImage.setFitWidth(250);
-        gameoverImage.setX(gameoverImage.getX() - 25);
-        gameoverImage.setVisible(false);
     }
 
     /**
