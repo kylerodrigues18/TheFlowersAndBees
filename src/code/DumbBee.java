@@ -18,8 +18,8 @@ public class DumbBee extends AbstractBee {
     /**
      * Constructor for DumbBee which uses AbstractBee's constructor through super.
      */
-    public DumbBee(Point2D location, int energyLevel, int moveDistance, ImageView imageView) {
-        super(location, energyLevel, moveDistance, imageView);
+    public DumbBee(Point2D location, int energyPoints, int moveDistance, ImageView imageView) {
+        super(location, energyPoints, moveDistance, imageView);
         moveRight = true;
     }
 
@@ -39,7 +39,7 @@ public class DumbBee extends AbstractBee {
         }
         setLocation(new Point2D(nextX, getLocation().getY()));
 
-        changeEnergyLevel(-1);
+        changeEnergyPoints(-1);
 
         return false;
     }

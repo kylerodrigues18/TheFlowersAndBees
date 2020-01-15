@@ -11,31 +11,24 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 
 public class GardenFlower implements Flower{
-    private Point2D location = null;
-    private boolean hasNector = true;
-    private int energyLevel = 0;
+    private Point2D location;
+    private int nectarPoints;
     ImageView imageView;
 
-    public GardenFlower(Point2D location, boolean hasNector, int energyLevel, ImageView imageView) {
+    public GardenFlower(Point2D location, int nectarPoints, ImageView imageView) {
         this.location = location;
-        this.hasNector = hasNector;
-        this.energyLevel = energyLevel;
+        this.nectarPoints = nectarPoints;
         this.imageView = imageView;
     }
 
     @Override
-    public int getEnergyLevel() {
-        return energyLevel;
+    public int getNectarPoints() {
+        return nectarPoints;
     }
 
     @Override
-    public void setNectorValue(boolean nectorBoolean) {
-        hasNector = nectorBoolean;
-    }
-
-    @Override
-    public boolean hasNector() {
-        return hasNector;
+    public void setNectarPoints(int nectarPoints) {
+        this.nectarPoints = nectarPoints;
     }
 
     @Override

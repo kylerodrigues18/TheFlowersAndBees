@@ -14,11 +14,9 @@ import javafx.scene.image.ImageView;
  * Interface for the Flower to implement which requires method stubs to be defined.
  */
 public interface Flower {
-    int getEnergyLevel();
+    int getNectarPoints();
 
-    void setNectorValue(boolean nectorValue);
-
-    boolean hasNector();
+    void setNectarPoints(int nectarLevel);
 
     Point2D getLocation();
 

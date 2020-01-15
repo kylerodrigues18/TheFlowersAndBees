@@ -15,21 +15,21 @@ import javafx.scene.image.ImageView;
  * Abstract class that implements Bee interface and defines multiple methods.
  */
 public abstract class AbstractBee implements Bee {
-    private Point2D location = null;
-    private int energyLevel = 10;
-    private int moveDistance = 20;
+    private Point2D location;
+    private int energyPoints;
+    private int moveDistance;
     private ImageView imageView;
 
     /**
      * Constructor for AbstractBee.
      * @param location point 2d location in x, y plane
-     * @param energyLevel energy levels of the bee
+     * @param energyPoints energy levels of the bee
      * @param moveDistance distance the bee moves per increment/step
      * @param imageView image of the bee (different for type)
      */
-    public AbstractBee(Point2D location, int energyLevel, int moveDistance, ImageView imageView) {
+    public AbstractBee(Point2D location, int energyPoints, int moveDistance, ImageView imageView) {
         this.location = location;
-        this.energyLevel = energyLevel;
+        this.energyPoints = energyPoints;
         this.moveDistance = moveDistance;
         this.imageView = imageView;
         imageView.setLayoutX(location.getX());
@@ -49,8 +49,8 @@ public abstract class AbstractBee implements Bee {
      * @param energyChange energy to change by
      */
     @Override
-    public void changeEnergyLevel(int energyChange) {
-        energyLevel = energyLevel + energyChange;
+    public void changeEnergyPoints(int energyChange) {
+        energyPoints = energyPoints + energyChange;
     }
 
     /**
@@ -58,8 +58,8 @@ public abstract class AbstractBee implements Bee {
      * @return int value of energy level
      */
     @Override
-    public int getEnergyLevel() {
-        return energyLevel;
+    public int getEnergyPoints() {
+        return energyPoints;
     }
 
     /**

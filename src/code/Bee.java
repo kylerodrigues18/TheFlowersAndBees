@@ -16,9 +16,9 @@ import javafx.scene.image.ImageView;
 public interface Bee {
     boolean move();
 
-    void changeEnergyLevel(int energyLevel);
+    void changeEnergyPoints(int energyPoints);
 
-    int getEnergyLevel();
+    int getEnergyPoints();
 
     Point2D getLocation();
 

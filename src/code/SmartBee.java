@@ -19,8 +19,8 @@ public class SmartBee extends AbstractBee {
     /**
      * Constructor for SmartBee which uses AbstractBee's constructor through super.
      */
-    public SmartBee(Point2D location, int energyLevel, int moveDistance, ImageView imageView) {
-        super(location, energyLevel, moveDistance, imageView);
+    public SmartBee(Point2D location, int energyPoints, int moveDistance, ImageView imageView) {
+        super(location, energyPoints, moveDistance, imageView);
     }
 
     /**
@@ -31,22 +31,22 @@ public class SmartBee extends AbstractBee {
         Point2D flowerLocation = targetFlower.getLocation();
         Point2D beeLocation = getLocation();
         double distance = beeLocation.distance(flowerLocation);
-        changeEnergyLevel(0);
-        if(distance < 15) {
+        changeEnergyPoints(-1);
+        if(distance < getMoveDistance()) {
             setLocation(new Point2D(flowerLocation.getX(), flowerLocation.getY()));
             return true;
         } else {
-            if(flowerLocation.getY() - 5 > beeLocation.getY()) {
-                setLocation(new Point2D(beeLocation.getX(), beeLocation.getY() + 10));
+            if(flowerLocation.getY() - getMoveDistance()/2.0 > beeLocation.getY()) {
+                setLocation(new Point2D(beeLocation.getX(), beeLocation.getY() + getMoveDistance()));
                 return false;
-            } else if(flowerLocation.getY() + 5 < beeLocation.getY()) {
-                setLocation(new Point2D(beeLocation.getX(), beeLocation.getY() - 10));
+            } else if(flowerLocation.getY() + getMoveDistance()/2.0 < beeLocation.getY()) {
+                setLocation(new Point2D(beeLocation.getX(), beeLocation.getY() - getMoveDistance()));
                 return false;
             } else if(flowerLocation.getX() > beeLocation.getX()) {
-                setLocation(new Point2D(beeLocation.getX() + 10, beeLocation.getY()));
+                setLocation(new Point2D(beeLocation.getX() + getMoveDistance(), beeLocation.getY()));
                 return false;
             } else if(flowerLocation.getX() <= beeLocation.getX()){
-                setLocation(new Point2D(beeLocation.getX() - 10, beeLocation.getY()));
+                setLocation(new Point2D(beeLocation.getX() - getMoveDistance(), beeLocation.getY()));
                 return false;
             }
             return false;
