@@ -30,8 +30,11 @@ public class GardenController {
     private int imageSize = 50;
     private int moveDistance = 10;
     private int collisionPoints = 5;
-    private int energyPoints = 200;
-    private int nectarPoints = 5;
+    private int energyPoints = 100000;
+    private int nectarPoints = 10;
+    private int numBees = 5;
+    private int numFlowers = 10;
+    private int tick = 0;
 
     @FXML
     private Pane gardenPane;
@@ -52,23 +55,24 @@ public class GardenController {
         // init infoPanel data
         infoPanel.getItems().add("We have 2 types of Bees: ");
         infoPanel.getItems().add("-Red: moves to flowers");
-        infoPanel.getItems().add("-Yellow Antenna: moves inline");
+        infoPanel.getItems().add("-Yellow: moves inline");
         infoPanel.getItems().add("We have 2 types of Flowers: ");
         infoPanel.getItems().add("-Pink: replenishes bee energy");
         infoPanel.getItems().add("-Purple: drains bee energy");
 
-        initFlowers(10);
+        initFlowers(numFlowers);
         for (GardenFlower flower : flowers) {
             gardenPane.getChildren().add(flower.getImageView());
         }
 
-        initBees(5);
+        initBees(numBees);
         for (AbstractBee bee : bees) {
             gardenPane.getChildren().add(bee.getImageView());
         }
-        gardenPane.setFocusTraversable(true);
 
-        gameoverImage.setFitHeight(150);
+        gardenPane.setFocusTraversable(true);
+        gameoverImage.setFitWidth(250);
+        gameoverImage.setX(gameoverImage.getX() - 25);
         gameoverImage.setVisible(false);
     }
 
@@ -153,16 +157,16 @@ public class GardenController {
             if (i % 2 == 0) {
                 ImageView beeImage = new ImageView(new Image("\\images\\" + "bee-1.png"));
                 beeImage.setPreserveRatio(true);
-                beeImage.setFitWidth(imageSize);
-                DumbBee dumbBee = new DumbBee(location, randomEnergyPoints, moveDistance, beeImage);
-                bees.add(dumbBee);
+                beeImage.setFitHeight(imageSize);
+                SmartBee smartBee = new SmartBee(location, randomEnergyPoints, moveDistance, beeImage);
+                smartBee.setTargetFlower(flowers.get((int) (Math.random()*flowers.size())));
+                bees.add(smartBee);
             } else {
                 ImageView beeImage = new ImageView(new Image("\\images\\" + "bee-2.png"));
                 beeImage.setPreserveRatio(true);
-                beeImage.setFitWidth(imageSize);
-                SmartBee smartBee = new SmartBee(location, energyPoints, moveDistance, beeImage);
-                smartBee.setTargetFlower(flowers.get((int) (Math.random()*flowers.size())));
-                bees.add(smartBee);
+                beeImage.setFitHeight(imageSize);
+                DumbBee dumbBee = new DumbBee(location, randomEnergyPoints, moveDistance, beeImage);
+                bees.add(dumbBee);
             }
         }
     }
@@ -176,6 +180,8 @@ public class GardenController {
     @FXML
     public void onKeyPressed(KeyEvent keyEvent) {
         if ((keyEvent.getCode() == KeyCode.SPACE || keyEvent.getCode() == KeyCode.RIGHT) && !gameoverFlag) {
+            tick++;
+
             // Loop through each bee to make them move
             for (int i = 0; i < bees.size(); i++) {
 
@@ -192,6 +198,7 @@ public class GardenController {
 
                 boolean targetReached = bees.get(i).move();
 
+                // sets targetFlower nectar to zero and changes targetFlower to random one.
                 if(targetReached && bees.get(i) instanceof SmartBee) {
                     bees.get(i).changeEnergyPoints(((SmartBee) bees.get(i)).getTargetFlower().getNectarPoints());
                     ((SmartBee) bees.get(i)).getTargetFlower().setNectarPoints(0);
@@ -200,6 +207,7 @@ public class GardenController {
                     ((SmartBee) bees.get(i)).setTargetFlower(targetFlower);
                 }
             }
+
             // Remove bees that have no energy (energy <= 0)
             for (int i = 0; i < bees.size(); i++) {
                 if(bees.get(i).getEnergyPoints() <= 0) {
@@ -212,21 +220,22 @@ public class GardenController {
             infoPanel.getItems().clear();
             infoPanel.setMouseTransparent( true );
             infoPanel.setFocusTraversable( false );
+            infoPanel.getItems().add("Ticks: " + tick);
             infoPanel.getItems().add("Bees: ");
+
             // Update InfoView
             for (int i = 0; i < bees.size(); i++) {
-                String s = "";
-                s = "X: "+ bees.get(i).getLocation().getX() + " Y: " + bees.get(i).getLocation().getY() + " Energy: " + bees.get(i).getEnergyPoints();
-                infoPanel.getItems().add(s);
+                String beeInfo = "X: "+ bees.get(i).getLocation().getX() + " Y: " + bees.get(i).getLocation().getY() + " Energy: " + bees.get(i).getEnergyPoints();
+                infoPanel.getItems().add(beeInfo);
             }
 
             infoPanel.getItems().add("Flowers: ");
             for (int i = 0; i < flowers.size(); i++) {
-                String s = "";
-                s = "X: "+ flowers.get(i).getLocation().getX() + " Y: " + flowers.get(i).getLocation().getY() + " Nectar: " + flowers.get(i).getNectarPoints();
-                infoPanel.getItems().add(s);
+                String flowerInfo = "X: "+ flowers.get(i).getLocation().getX() + " Y: " + flowers.get(i).getLocation().getY() + " Nectar: " + flowers.get(i).getNectarPoints();
+                infoPanel.getItems().add(flowerInfo);
             }
 
+            // ends game when all bees are dead.
             if(bees.size() == 0) {
                 gameoverFlag = true;
                 gameoverImage.toFront();

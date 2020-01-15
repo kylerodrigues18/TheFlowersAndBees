@@ -14,13 +14,15 @@ import javafx.scene.image.ImageView;
  * Class that inherits methods & attributes from AbstractBee and overrides move() method.
  */
 public class DumbBee extends AbstractBee {
-    private Boolean moveRight;
+    private int moveRight;
+    private int moveDown;
     /**
      * Constructor for DumbBee which uses AbstractBee's constructor through super.
      */
     public DumbBee(Point2D location, int energyPoints, int moveDistance, ImageView imageView) {
         super(location, energyPoints, moveDistance, imageView);
-        moveRight = true;
+        moveRight = 1;
+        moveDown = 1;
     }
 
     /**
@@ -28,22 +30,34 @@ public class DumbBee extends AbstractBee {
      */
     @Override
     public boolean move() {
-        double currentLocation = getLocation().getX();
-        double nextX = (moveRight) ? currentLocation + getMoveDistance() : currentLocation - getMoveDistance();
+        double currentX = getLocation().getX();
+        double currentY = getLocation().getY();
+        double nextX;
+        double nextY = currentY;
+
+        nextX = currentX + moveRight*getMoveDistance();
+
         if(nextX > 550) {
-            moveRight = false;
-            nextX = 549;
+            moveRight = -1;
+            nextX = 550;
+            nextY = currentY + moveDown*getImageView().getFitHeight()/2;
         } else if (nextX < 0) {
-            moveRight = true;
+            moveRight = 1;
             nextX = 0;
+            nextY = currentY + moveDown*getImageView().getFitHeight()/2;
         }
-        setLocation(new Point2D(nextX, getLocation().getY()));
+
+        if(nextY > 500 + getImageView().getFitHeight()/2) {
+            moveDown = -1;
+            nextY = 500;
+        } else if(nextY < 0) {
+            moveDown = 1;
+            nextY = 0;
+        }
+        setLocation(new Point2D(nextX, nextY));
 
         changeEnergyPoints(-1);
 
         return false;
-    }
-    public void setReferenceBee(AbstractBee bee) {
-
     }
 }
