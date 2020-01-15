@@ -51,10 +51,10 @@ public class GardenController {
 
         // init infoPanel data
         infoPanel.getItems().add("We have 2 types of Bees: ");
-        infoPanel.getItems().add("-Curly Antenna: moves to flowers");
-        infoPanel.getItems().add("-Circle Antenna: moves inline");
+        infoPanel.getItems().add("-Red: moves to flowers");
+        infoPanel.getItems().add("-Yellow Antenna: moves inline");
         infoPanel.getItems().add("We have 2 types of Flowers: ");
-        infoPanel.getItems().add("-White: replenishes bee energy");
+        infoPanel.getItems().add("-Pink: replenishes bee energy");
         infoPanel.getItems().add("-Purple: drains bee energy");
 
         initFlowers(10);
