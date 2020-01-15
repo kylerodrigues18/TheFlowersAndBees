@@ -209,6 +209,15 @@ public class GardenController {
                     Flower targetFlower = flowers.get((int) (Math.random()*flowers.size()));
                     ((SmartBee) bees.get(i)).setTargetFlower(targetFlower);
                 }
+                // Checks for DumbBee collision with flower
+                if(bees.get(i) instanceof DumbBee) {
+                    for (int f = 0; f < flowers.size(); f++) {
+                        if (flowers.get(f).getLocation().distance(bees.get(i).getLocation()) < imageSize/2.0) {
+                            bees.get(i).changeEnergyPoints(flowers.get(f).getNectarPoints());
+                            flowers.get(i).setNectarPoints(0);
+                        }
+                    }
+                }
             }
 
             // Remove bees that have no energy (energy <= 0)
